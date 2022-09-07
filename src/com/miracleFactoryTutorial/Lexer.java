@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.miracleFactoryTutorial.Token;
 
 public class Lexer {
-    public static String regexPat = "\\s*((//.*)|([0-9]+)|" +
-            "(\"(\\\\\"|\\\\\\\\|\\\\n|[^\"])*\")"
+    public static String regexPat
+            = "\\s*((//.*)|([0-9]+)|(\"(\\\\\"|\\\\\\\\|\\\\n|[^\"])*\")"
             + "|[A-Z_a-z][A-Z_a-z0-9]*|==|<=|>=|&&|\\|\\||\\p{Punct})?";
     private Pattern pattern = Pattern.compile(regexPat);
     private ArrayList<Token> queue = new ArrayList<>();
@@ -52,7 +51,7 @@ public class Lexer {
     }
 
     protected void readline() throws ParseException {
-        String line = null;
+        String line;
         try {
             line = reader.readLine();
         } catch (IOException e) {
@@ -61,6 +60,7 @@ public class Lexer {
         }
         if (line == null) {
             hasMore = false;
+            return;
         }
         int lineNo = reader.getLineNumber();
         Matcher matcher = pattern.matcher(line);
@@ -78,19 +78,17 @@ public class Lexer {
 
     protected void addToken(int lineNo, Matcher matcher) {
         String m = matcher.group(1);
-        if (m != null) {
-            if (matcher.group(2) != null) {
+        if (m != null)
+            if (matcher.group(2) == null) {
                 Token token;
-                if (matcher.group(3) != null) {
+                if (matcher.group(3) != null)
                     token = new NumToken(lineNo, Integer.parseInt(m));
-                } else if (matcher.group(4) != null) {
+                else if (matcher.group(4) != null)
                     token = new StrToken(lineNo, toStringLiteral(m));
-                } else {
+                else
                     token = new IdToken(lineNo, m);
-                }
-                this.queue.add(token);
+                queue.add(token);
             }
-        }
     }
 
     protected String toStringLiteral(String s) {
@@ -155,8 +153,10 @@ public class Lexer {
 
         protected IdToken(int line, String id) {
             super(line);
-            this.identifier = id;
+            identifier = id;
         }
+        public boolean isIdentifier() { return true; }
+        public String getText() { return identifier; }
     }
 
 }
