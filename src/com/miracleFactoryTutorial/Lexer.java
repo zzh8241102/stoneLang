@@ -69,7 +69,7 @@ public class Lexer {
             matcher.region(currentPos, line.length());
             if (matcher.lookingAt()) {
                 addToken(lineNo, matcher);
-                currentPos = matcher.end();
+                currentPos = matcher.end();// 比如我们"string a = "s" 根据regex 我们进入循环后第一次addtoken结束后 currentpos变成6"
             } else
                 throw new ParseException("bad token at line " + lineNo);
         }
@@ -77,7 +77,7 @@ public class Lexer {
     }
 
     protected void addToken(int lineNo, Matcher matcher) {
-        String m = matcher.group(1);
+        String m = matcher.group(1);// 比如"string" group(0) group(1) group(4) 都是"string"
         if (m != null)
             if (matcher.group(2) == null) {
                 Token token;

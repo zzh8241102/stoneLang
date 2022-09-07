@@ -17,7 +17,7 @@ public class CodeDialog extends Reader {
 
     public int read(char[] cbuf, int off, int len) throws IOException {
         if (buffer == null) {
-            String in = showDialog();//��ʾ���ڣ�ͬ�»�ȡ�������ݣ�in����
+            String in = showDialog();
             if (in == null)
                 return -1;
             else {
@@ -30,7 +30,7 @@ public class CodeDialog extends Reader {
         int size = 0;
         int length = buffer.length();
         while (pos < length && size < len)
-            cbuf[off + size++] = buffer.charAt(pos++);//��off����Ϊƫ�ƣ����д洢7
+            cbuf[off + size++] = buffer.charAt(pos++);
         if (pos == length)
             buffer = null;
         return size;
