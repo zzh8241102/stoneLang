@@ -9,6 +9,7 @@ public class ASTList extends ASTree {
 
     public ASTList(List<ASTree> list) { this.children = list; }
 
+
     public ASTree child(int i) { return children.get(i); }
 
     public int numChildren() { return children.size(); }
@@ -18,10 +19,10 @@ public class ASTList extends ASTree {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append('(');
-        String seperation = "";
+        String sep = "";
         for (ASTree t : children) {
-            sb.append(seperation);
-            seperation = ", ";
+            sb.append(sep);
+            sep = ", ";
             sb.append(t.toString());
         }
 

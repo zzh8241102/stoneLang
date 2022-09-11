@@ -8,6 +8,7 @@ import java.util.Iterator;
 public class ASTLeaf extends ASTree {
     public Token token;
     private static ArrayList<ASTree> empty = new ArrayList<ASTree>();
+
     public ASTLeaf(Token t){this.token=t;}
     public ASTree child(int i){throw new IndexOutOfBoundsException();}
     public int numChildren(){return 0;}

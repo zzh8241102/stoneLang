@@ -111,7 +111,7 @@ public class Lexer {
     }
 
     protected static class NumToken extends Token {
-        private int value;
+        private final int value;
 
         protected NumToken(int line, int value) {
             super(line);
@@ -132,7 +132,7 @@ public class Lexer {
     }
 
     protected static class StrToken extends Token {
-        private String strLiteral;
+        private final String strLiteral;
 
         protected StrToken(int line, String strLiteral) {
             super(line);
@@ -149,7 +149,7 @@ public class Lexer {
     }
 
     protected static class IdToken extends Token {
-        private String identifier;
+        private final String identifier;
 
         protected IdToken(int line, String id) {
             super(line);
